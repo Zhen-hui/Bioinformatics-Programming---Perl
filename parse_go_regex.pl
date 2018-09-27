@@ -11,13 +11,17 @@ use feature 'say';
 # 5. multiple alt_id entries
 # 6. multiple is_a entries
 
+# Call the subroutine
 read_GO_desc();
 
+# Create a subroutine
 sub read_GO_desc {
+
+	# Open a filehandler for reading
 	my $GO_desc_file = '../Module01/scratch/go-basic.obo';
 	open( GO_DESC, '<', $GO_desc_file ) or die $!;
 	
-	# Open a file handlers to store output
+	# Open a file handlers to store outputs
 	open( OUT, '>', "parsed_output.txt" ) or die $!;
 	open( STDERR, '>', "not_parsed_output.txt" ) or die $!;
 	
@@ -46,6 +50,7 @@ sub read_GO_desc {
 			^alt_id:\s+(?<alt_id>.*?)\s+
 		/msx;
 
+		# Print each iteration have all matching information, print result to output file
 		if ( $long_GO_desc =~ /$parsing_regex/ ) {
 			say OUT join ("\n", $+{id}, $+{name}, $+{namespace}, $+{def});			
 			
