@@ -10,20 +10,20 @@ my %transcript_to_protein;
 my $ID;
 my $Swiss;
 
+# Open a file handler to read from the Blast file
 open( my $BLAST, '<', 'blastp.outfmt6' ) or die $!;
 
+# Use regular expression to find the values desired
 while (my $row = <$BLAST>) {
+
 	chomp $row;
 
-	if($row =~ /(c\S*\|)/ ) {    
+	if($row =~ /(c\S+?)\|/m ) {    
 	$ID = $1;
-	$ID =~ s/\|//;   
 	}
 	
-	if ($row =~ /(sp\|\S*\|)/ ) {
+	if ($row =~ /sp\|(\S*)\|/m ) {
 	$Swiss = $1;
-	$Swiss =~ s/sp\|//;
-	$Swiss =~ s/\|//;
 	}
 	
 	$transcript_to_protein{$ID} = $Swiss;
