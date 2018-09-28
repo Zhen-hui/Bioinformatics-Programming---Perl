@@ -64,7 +64,7 @@ has 'isoform' => (
 
 has 'gi' => (
 	is  => 'rw',
-	isa => 'Num'
+	isa => 'Int'
 );
 
 has 'sp' => (
@@ -79,22 +79,22 @@ has 'prot' => (
 
 has 'pident' => (
 	is  => 'rw',
-	isa => 'Int'
+	isa => 'Num'
 );
 
 has 'len' => (
 	is  => 'rw',
-	isa => 'Num'
+	isa => 'Int'
 );
 
 has 'mismatch' => (
 	is  => 'rw',
-	isa => 'Num'
+	isa => 'Int'
 );
 
 has 'gapopen' => (
 	is  => 'rw',
-	isa => 'Num'
+	isa => 'Int'
 );
 
 1;
