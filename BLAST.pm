@@ -10,15 +10,14 @@ sub print_all {
 	my ($self) = @_;
 
 	# Check if object has defined transcript value first.
-	if ( $self->transcript() ) {
-		say join( "\t",
-			$self->transcript(), $self->isoform(),  $self->gi(),
-			$self->sp(),         $self->prot(),     $self->pident(),
-			$self->len(),        $self->mismatch(), $self->gapopen() );
-	}
-	else {
-		say "Error.";
-	}
+
+	my $result = join( "\t",
+		$self->transcript(), $self->isoform(),  $self->gi(),
+		$self->sp(),         $self->prot(),     $self->pident(),
+		$self->len(),        $self->mismatch(), $self->gapopen() );
+
+	say $result;
+
 }
 
 # method to accept a single line of BLAST input, parses it, and sets the attributes
@@ -27,15 +26,15 @@ sub parse_blast_hit {
 
 	# Regex to get all attributes via named captures.
 	my $parsing_regex = qr/
-			^(?<transcript>\S+?)\|
-		    (?<isoform>\w+\.+[1-9]+)?\t
+			(?<transcript>.*?)\|
+		    (?<isoform>.*?)\s+
 		    gi\|(?<gi>\d+?)\| 
             sp\|(?<sp>.*?)\|
-            (?<prot>.*_SCHPO)\s  
-            (?<pident>\d+\.\d+)\s  
-            (?<len>\d+)\s 
-		    (?<mismatch>\d+)\s
-		    (?<gapopen>\d+)\s 
+            (?<prot>.*?)\s+  
+            (?<pident>\d+?\.\d+?)\s+  
+            (?<len>\d+?)\s+ 
+		    (?<mismatch>\d+)\s+
+		    (?<gapopen>\d+)\s+ 
 		/msx;
 
 	# If record can be parsed, set attributes. Otherwise, do nothing.
